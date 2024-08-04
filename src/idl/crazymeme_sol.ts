@@ -295,13 +295,8 @@ export type CrazymemeSol = {
       ]
     },
     {
-      "name": "getPrice",
+      "name": "getBuyPrice",
       "accounts": [
-        {
-          "name": "global",
-          "isMut": true,
-          "isSigner": false
-        },
         {
           "name": "mint",
           "isMut": false,
@@ -309,21 +304,38 @@ export type CrazymemeSol = {
         },
         {
           "name": "crazyState",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
       ],
-      "args": [],
+      "args": [
+        {
+          "name": "tokenAmount",
+          "type": "u64"
+        }
+      ],
+      "returns": "u64"
+    },
+    {
+      "name": "getSellPrice",
+      "accounts": [
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "crazyState",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "tokenAmount",
+          "type": "u64"
+        }
+      ],
       "returns": "u64"
     }
   ],
@@ -471,6 +483,11 @@ export type CrazymemeSol = {
           "index": false
         },
         {
+          "name": "auctionPeriod",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "mint",
           "type": "publicKey",
           "index": false
@@ -527,6 +544,41 @@ export type CrazymemeSol = {
         },
         {
           "name": "timestamp",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "solReserves",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReserves",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenLocked",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "auctionStartTime",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "auctionPeriod",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleaseTick",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleasePerTime",
           "type": "u64",
           "index": false
         }
@@ -601,61 +653,41 @@ export type CrazymemeSol = {
     },
     {
       "code": 6005,
-      "name": "MinBuy",
-      "msg": "Min buy is 1 Token"
+      "name": "InsufficientFee",
+      "msg": "Insufficient Fee"
     },
     {
       "code": 6006,
-      "name": "MinSell",
-      "msg": "Min sell is 1 Token"
+      "name": "InvalidFeeRecipient",
+      "msg": "Min buy is 1 Token"
     },
     {
       "code": 6007,
-      "name": "InvalidFeeRecipient",
-      "msg": "Invalid Fee Recipient"
-    },
-    {
-      "code": 6008,
       "name": "InvalidWithdrawAuthority",
       "msg": "Invalid Withdraw Authority"
     },
     {
-      "code": 6009,
+      "code": 6008,
       "name": "InvalidAuctionPeriod",
       "msg": "Invalid Auction Period"
     },
     {
-      "code": 6010,
+      "code": 6009,
       "name": "InvalidTimestamp",
       "msg": "Invalid Timestamp"
     },
     {
-      "code": 6011,
-      "name": "DevNotPurchased",
-      "msg": "Dev Not Purchased"
-    },
-    {
-      "code": 6012,
-      "name": "DevAlreadyPurchased",
-      "msg": "Dev Already Purchased"
-    },
-    {
-      "code": 6013,
-      "name": "NotInAuctionSession",
-      "msg": "Not In Auction Session"
-    },
-    {
-      "code": 6014,
+      "code": 6010,
       "name": "SlippageExceeded",
       "msg": "Slippage Exceeded"
     },
     {
-      "code": 6015,
+      "code": 6011,
       "name": "InvalidAmount",
       "msg": "Invalid Amount"
     },
     {
-      "code": 6016,
+      "code": 6012,
       "name": "EmptySupply",
       "msg": "Empty Supply"
     }
@@ -959,13 +991,8 @@ export const IDL: CrazymemeSol = {
       ]
     },
     {
-      "name": "getPrice",
+      "name": "getBuyPrice",
       "accounts": [
-        {
-          "name": "global",
-          "isMut": true,
-          "isSigner": false
-        },
         {
           "name": "mint",
           "isMut": false,
@@ -973,21 +1000,38 @@ export const IDL: CrazymemeSol = {
         },
         {
           "name": "crazyState",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "user",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
           "isMut": false,
           "isSigner": false
         }
       ],
-      "args": [],
+      "args": [
+        {
+          "name": "tokenAmount",
+          "type": "u64"
+        }
+      ],
+      "returns": "u64"
+    },
+    {
+      "name": "getSellPrice",
+      "accounts": [
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "crazyState",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "tokenAmount",
+          "type": "u64"
+        }
+      ],
       "returns": "u64"
     }
   ],
@@ -1135,6 +1179,11 @@ export const IDL: CrazymemeSol = {
           "index": false
         },
         {
+          "name": "auctionPeriod",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "mint",
           "type": "publicKey",
           "index": false
@@ -1191,6 +1240,41 @@ export const IDL: CrazymemeSol = {
         },
         {
           "name": "timestamp",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "solReserves",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReserves",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenLocked",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "auctionStartTime",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "auctionPeriod",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleaseTick",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleasePerTime",
           "type": "u64",
           "index": false
         }
@@ -1265,61 +1349,41 @@ export const IDL: CrazymemeSol = {
     },
     {
       "code": 6005,
-      "name": "MinBuy",
-      "msg": "Min buy is 1 Token"
+      "name": "InsufficientFee",
+      "msg": "Insufficient Fee"
     },
     {
       "code": 6006,
-      "name": "MinSell",
-      "msg": "Min sell is 1 Token"
+      "name": "InvalidFeeRecipient",
+      "msg": "Min buy is 1 Token"
     },
     {
       "code": 6007,
-      "name": "InvalidFeeRecipient",
-      "msg": "Invalid Fee Recipient"
-    },
-    {
-      "code": 6008,
       "name": "InvalidWithdrawAuthority",
       "msg": "Invalid Withdraw Authority"
     },
     {
-      "code": 6009,
+      "code": 6008,
       "name": "InvalidAuctionPeriod",
       "msg": "Invalid Auction Period"
     },
     {
-      "code": 6010,
+      "code": 6009,
       "name": "InvalidTimestamp",
       "msg": "Invalid Timestamp"
     },
     {
-      "code": 6011,
-      "name": "DevNotPurchased",
-      "msg": "Dev Not Purchased"
-    },
-    {
-      "code": 6012,
-      "name": "DevAlreadyPurchased",
-      "msg": "Dev Already Purchased"
-    },
-    {
-      "code": 6013,
-      "name": "NotInAuctionSession",
-      "msg": "Not In Auction Session"
-    },
-    {
-      "code": 6014,
+      "code": 6010,
       "name": "SlippageExceeded",
       "msg": "Slippage Exceeded"
     },
     {
-      "code": 6015,
+      "code": 6011,
       "name": "InvalidAmount",
       "msg": "Invalid Amount"
     },
     {
-      "code": 6016,
+      "code": 6012,
       "name": "EmptySupply",
       "msg": "Empty Supply"
     }
