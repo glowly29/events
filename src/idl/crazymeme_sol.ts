@@ -173,6 +173,11 @@ export type CrazymemeSol = {
           "isSigner": false
         },
         {
+          "name": "creator",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "mint",
           "isMut": false,
           "isSigner": false
@@ -215,11 +220,11 @@ export type CrazymemeSol = {
       ],
       "args": [
         {
-          "name": "tokenAmount",
+          "name": "solAmount",
           "type": "u64"
         },
         {
-          "name": "maxSolCost",
+          "name": "minTokenOutput",
           "type": "u64"
         }
       ]
@@ -239,6 +244,11 @@ export type CrazymemeSol = {
         },
         {
           "name": "feeRecipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creator",
           "isMut": true,
           "isSigner": false
         },
@@ -346,6 +356,10 @@ export type CrazymemeSol = {
         "kind": "struct",
         "fields": [
           {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
             "name": "solReserves",
             "type": "u64"
           },
@@ -358,7 +372,7 @@ export type CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "lastUpdateTime",
+            "name": "lastUpdateSlot",
             "type": "u64"
           },
           {
@@ -366,15 +380,15 @@ export type CrazymemeSol = {
             "type": "u64"
           },
           {
+            "name": "startSlot",
+            "type": "u64"
+          },
+          {
             "name": "auctionPeriod",
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
-            "type": "u64"
-          },
-          {
-            "name": "tokenReleasePerTime",
+            "name": "tokenReleasePerSlot",
             "type": "u64"
           }
         ]
@@ -410,15 +424,19 @@ export type CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
+            "name": "platformTradeFee",
             "type": "u64"
           },
           {
-            "name": "tradeFee",
+            "name": "creatorTradeFee",
             "type": "u64"
           },
           {
             "name": "createFee",
+            "type": "u64"
+          },
+          {
+            "name": "maxTradeOrder",
             "type": "u64"
           }
         ]
@@ -448,11 +466,11 @@ export type CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
+            "name": "platformTradeFee",
             "type": "u64"
           },
           {
-            "name": "tradeFee",
+            "name": "creatorTradeFee",
             "type": "u64"
           },
           {
@@ -508,7 +526,22 @@ export type CrazymemeSol = {
           "index": false
         },
         {
+          "name": "slot",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "tokenReceived",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleasePerSlot",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "fee",
           "type": "u64",
           "index": false
         }
@@ -548,6 +581,11 @@ export type CrazymemeSol = {
           "index": false
         },
         {
+          "name": "slot",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "solReserves",
           "type": "u64",
           "index": false
@@ -563,22 +601,12 @@ export type CrazymemeSol = {
           "index": false
         },
         {
-          "name": "auctionStartTime",
+          "name": "tokenReleasePerSlot",
           "type": "u64",
           "index": false
         },
         {
-          "name": "auctionPeriod",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "tokenReleaseTick",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "tokenReleasePerTime",
+          "name": "fee",
           "type": "u64",
           "index": false
         }
@@ -608,12 +636,12 @@ export type CrazymemeSol = {
           "index": false
         },
         {
-          "name": "tokenReleaseTick",
+          "name": "platformTradeFee",
           "type": "u64",
           "index": false
         },
         {
-          "name": "tradeFee",
+          "name": "creatorTradeFee",
           "type": "u64",
           "index": false
         },
@@ -690,6 +718,16 @@ export type CrazymemeSol = {
       "code": 6012,
       "name": "EmptySupply",
       "msg": "Empty Supply"
+    },
+    {
+      "code": 6013,
+      "name": "MaxTradeOrder",
+      "msg": "Max Trade Order"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidCreator",
+      "msg": "Invalid Creator"
     }
   ]
 };
@@ -869,6 +907,11 @@ export const IDL: CrazymemeSol = {
           "isSigner": false
         },
         {
+          "name": "creator",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "mint",
           "isMut": false,
           "isSigner": false
@@ -911,11 +954,11 @@ export const IDL: CrazymemeSol = {
       ],
       "args": [
         {
-          "name": "tokenAmount",
+          "name": "solAmount",
           "type": "u64"
         },
         {
-          "name": "maxSolCost",
+          "name": "minTokenOutput",
           "type": "u64"
         }
       ]
@@ -935,6 +978,11 @@ export const IDL: CrazymemeSol = {
         },
         {
           "name": "feeRecipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creator",
           "isMut": true,
           "isSigner": false
         },
@@ -1042,6 +1090,10 @@ export const IDL: CrazymemeSol = {
         "kind": "struct",
         "fields": [
           {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
             "name": "solReserves",
             "type": "u64"
           },
@@ -1054,7 +1106,7 @@ export const IDL: CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "lastUpdateTime",
+            "name": "lastUpdateSlot",
             "type": "u64"
           },
           {
@@ -1062,15 +1114,15 @@ export const IDL: CrazymemeSol = {
             "type": "u64"
           },
           {
+            "name": "startSlot",
+            "type": "u64"
+          },
+          {
             "name": "auctionPeriod",
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
-            "type": "u64"
-          },
-          {
-            "name": "tokenReleasePerTime",
+            "name": "tokenReleasePerSlot",
             "type": "u64"
           }
         ]
@@ -1106,15 +1158,19 @@ export const IDL: CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
+            "name": "platformTradeFee",
             "type": "u64"
           },
           {
-            "name": "tradeFee",
+            "name": "creatorTradeFee",
             "type": "u64"
           },
           {
             "name": "createFee",
+            "type": "u64"
+          },
+          {
+            "name": "maxTradeOrder",
             "type": "u64"
           }
         ]
@@ -1144,11 +1200,11 @@ export const IDL: CrazymemeSol = {
             "type": "u64"
           },
           {
-            "name": "tokenReleaseTick",
+            "name": "platformTradeFee",
             "type": "u64"
           },
           {
-            "name": "tradeFee",
+            "name": "creatorTradeFee",
             "type": "u64"
           },
           {
@@ -1204,7 +1260,22 @@ export const IDL: CrazymemeSol = {
           "index": false
         },
         {
+          "name": "slot",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "tokenReceived",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "tokenReleasePerSlot",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "fee",
           "type": "u64",
           "index": false
         }
@@ -1244,6 +1315,11 @@ export const IDL: CrazymemeSol = {
           "index": false
         },
         {
+          "name": "slot",
+          "type": "u64",
+          "index": false
+        },
+        {
           "name": "solReserves",
           "type": "u64",
           "index": false
@@ -1259,22 +1335,12 @@ export const IDL: CrazymemeSol = {
           "index": false
         },
         {
-          "name": "auctionStartTime",
+          "name": "tokenReleasePerSlot",
           "type": "u64",
           "index": false
         },
         {
-          "name": "auctionPeriod",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "tokenReleaseTick",
-          "type": "u64",
-          "index": false
-        },
-        {
-          "name": "tokenReleasePerTime",
+          "name": "fee",
           "type": "u64",
           "index": false
         }
@@ -1304,12 +1370,12 @@ export const IDL: CrazymemeSol = {
           "index": false
         },
         {
-          "name": "tokenReleaseTick",
+          "name": "platformTradeFee",
           "type": "u64",
           "index": false
         },
         {
-          "name": "tradeFee",
+          "name": "creatorTradeFee",
           "type": "u64",
           "index": false
         },
@@ -1386,6 +1452,16 @@ export const IDL: CrazymemeSol = {
       "code": 6012,
       "name": "EmptySupply",
       "msg": "Empty Supply"
+    },
+    {
+      "code": 6013,
+      "name": "MaxTradeOrder",
+      "msg": "Max Trade Order"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidCreator",
+      "msg": "Invalid Creator"
     }
   ]
 };

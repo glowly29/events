@@ -15,7 +15,7 @@ import NodeWallet from "@coral-xyz/anchor/dist/cjs/nodewallet";
 // Initialize connection to the Solana devnet
 const connection = new Connection("https://rpc.ankr.com/solana_devnet");
 const CRAZYMEME_PROGRAM_ID = new PublicKey(
-  "J3GRGoeGism28nQeQTxFxcA9tbBDdG1hRsgqVm8mMbfC"
+  "AyVwefFVyuwgtBQ2cTteN3ZKo4Z4rCgvBtr3tgvnaPpb"
 );
 
 const authority = anchor.web3.Keypair.fromSecretKey(
@@ -40,7 +40,7 @@ const program = new Program<CrazymemeSol>(
 );
 
 const exampleMint = new PublicKey(
-  "4NWqjPFwbUX6gDEr6vBnutuvPa71VDvsG3ndhWdEETwH"
+  "2DQH8UejAZpgFm6FPwSZgncMKj66UPDqKDP5yoBbMXf2"
 );
 
 export const GLOBAL_SEED = "global";
@@ -95,13 +95,24 @@ async function getEventsForProgram(
   }
 }
 
+
 async function testGetPrice(program: Program<CrazymemeSol>) {
   const [crazyStatePDA] = PublicKey.findProgramAddressSync(
     [Buffer.from(CRAZY_STATE_SEED), exampleMint.toBuffer()],
     program.programId
   );
+  const state = await program.account.crazyState.fetch(crazyStatePDA);
+  console.log("solReserves", state.solReserves.toString());
+  console.log("tokenReserves", state.tokenReserves.toString());
+  console.log("tokenLocked", state.tokenLocked.toString());
+  console.log("lastUpdateSlot", state.lastUpdateSlot.toString());
+  console.log("startTime", state.startTime.toString());
+  console.log("auctionPeriod", state.auctionPeriod.toString());
+  console.log("startSlot", state.startSlot.toString());
+  console.log("tokenReleasePerSlot", state.tokenReleasePerSlot.toString());
+
   let tokenAmount = 100_000 * 10 ** Number(6);
-  let solAmount = 1 * LAMPORTS_PER_SOL;
+  let solAmount = 0.1 * LAMPORTS_PER_SOL;
 
   let buyPrice = await program.methods
     .getBuyPrice(new BN(solAmount))
@@ -110,7 +121,8 @@ async function testGetPrice(program: Program<CrazymemeSol>) {
       crazyState: crazyStatePDA,
     })
     .view();
-
+  console.log("mint: ", exampleMint.toString())
+  console.log("sol amount: ", solAmount)
   console.log("buy price: ", buyPrice.toString());
 
   let sellPrice = await program.methods
@@ -121,7 +133,7 @@ async function testGetPrice(program: Program<CrazymemeSol>) {
     })
     .view();
 
-  console.log("sell price: ", sellPrice.toString());
+  // console.log("sell price: ", sellPrice.toString());
 }
 
 // Example usage
