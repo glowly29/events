@@ -1,5 +1,5 @@
 1. Run
 
 ```bash
-npm run
+npm start
 ```
